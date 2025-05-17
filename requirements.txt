@@ -13,3 +13,4 @@ django-filter>=2.4.0
 django_redis
 PyYAML>=5.3
 pytest-django
+flake8>=6.0.0

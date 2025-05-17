@@ -1,7 +1,7 @@
 import requests
 import os
 
-GROQ_API_KEY = os.environ.get("GROQ_API_KEY") # Keep it in .env
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")  # Keep it in .env
 
 
 def summarize_with_groq(content: str) -> str:
@@ -100,8 +100,12 @@ def recommend_related_with_groq(content: str, articles: list[str]) -> list[str]:
     data = {
         "model": "llama3-8b-8192",
         "messages": [
-                {"role": "system", "content": "You are an AI assistant that finds related content."},
-                {"role": "user", "content": f"""Given this content:"{content} And these articles/snippets: {content_snippets} Return the numbers of the top 2 most related articles."""}
+            {"role": "system", "content": "You are an AI assistant that finds related content."},
+            {
+                "role": "user",
+                "content": f"""Given this content:"{content} And these articles/snippets:
+                {content_snippets} Return the numbers of the top 2 most related articles.""",
+            }
         ],
         "temperature": 0.3,
         "max_tokens": 50

@@ -67,16 +67,8 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
-                #'django.contrib.core.context_processors.core',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-
-                # 'django.contrib.auth.context_processors.auth',
-                # 'django.template.context_processors.debug',
-                # 'django.template.context_processors.i18n',
-                # 'django.template.context_processors.media',
-                # 'django.contrib.messages.context_processors.messages',
-                # 'django.template.context_processors.request',
             ],
         },
     },
@@ -94,7 +86,7 @@ DATABASES = {
         'NAME': os.environ.get('POSTGRES_DB', 'postgres'),
         'USER': os.environ.get('POSTGRES_USER', 'postgres'),
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD', ''),
-        'HOST': os.environ.get('POSTGRES_HOST', 'db'), # 'db' is the name of your docker-compose service
+        'HOST': os.environ.get('POSTGRES_HOST', 'db'),  # 'db' is the name of your docker-compose service
         'PORT': os.environ.get('POSTGRES_PORT', '5432'),
     }
 }
@@ -114,13 +106,13 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60), # todd: Make it shorter for production
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),  # todd: Make it shorter for production
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://redis:6379/1', # "redis" is the docker service name
+        'LOCATION': 'redis://redis:6379/1',  # "redis" is the docker service name
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
@@ -163,5 +155,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://redis:6379/0')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
-
-

@@ -1,9 +1,9 @@
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from app.contents.models import Content, Category
-from rest_framework import status
 from django.urls import reverse
-from rest_framework_simplejwt.tokens import RefreshToken
+
 
 class ContentAPITests(APITestCase):
 

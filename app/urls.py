@@ -29,7 +29,6 @@ class HealthCheck(View):
         return HttpResponse('All Good Here.')
 
 
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/core/', include('app.core.urls')),

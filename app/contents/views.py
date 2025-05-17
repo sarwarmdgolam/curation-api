@@ -1,22 +1,22 @@
+from django_filters.rest_framework import DjangoFilterBackend
+
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
-from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-
-from rest_framework import viewsets, permissions
-from rest_framework.decorators import action
+from rest_framework import permissions
 from rest_framework.response import Response
-
-from .ai import summarize_with_groq, analyze_sentiment_with_groq, extract_topics_with_groq, recommend_related_with_groq
-from .models import Content, Category
-from .serializers import ContentSerializer, SummarizeSerializer, CategorySerializer
-from .permissions import IsOwnerOrAdmin
 from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
     ListCreateAPIView,
     ListAPIView,
 )
+
+from .ai import summarize_with_groq, analyze_sentiment_with_groq, extract_topics_with_groq, recommend_related_with_groq
+from .models import Content, Category
+from .serializers import ContentSerializer, SummarizeSerializer, CategorySerializer
+from .permissions import IsOwnerOrAdmin
+
 from app.contents.tasks.background import process_content
 
 
@@ -27,6 +27,7 @@ class CategoryListAPIView(ListAPIView):
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Category.objects.filter(is_active=True).order_by('name')
+
 
 class ContentListCreateAPIView(ListCreateAPIView):
     """Handle creating and listing contents."""
@@ -72,6 +73,7 @@ class ContentRetrieveUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Content.objects.all()
     serializer_class = ContentSerializer
     lookup_field = 'id'
+
 
 class SummarizeContentAPIView(APIView):
     permission_classes = [IsAuthenticated]
