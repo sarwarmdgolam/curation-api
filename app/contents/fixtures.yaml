@@ -1,0 +1,11 @@
+---
+- model: contents.Category
+  pk: 1
+  fields:
+    name: "News"
+    is_active: True
+- model: contents.Category
+  pk: 2
+  fields:
+    name: "Latest"
+    is_active: True
