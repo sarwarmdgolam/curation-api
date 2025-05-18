@@ -12,5 +12,6 @@ requests~=2.31.0
 django-filter>=2.4.0
 django_redis
 PyYAML>=5.3
+pytest
 pytest-django
 flake8>=6.0.0
