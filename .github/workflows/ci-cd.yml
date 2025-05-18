@@ -44,7 +44,6 @@ jobs:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: test_db
-          POSTGRES_HOST: db
         ports:
           - 5432:5432
         options: >-
@@ -77,6 +76,10 @@ jobs:
 
       - name: Run migrations
         env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: localhost
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db
         run: |
           python manage.py migrate
