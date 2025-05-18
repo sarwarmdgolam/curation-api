@@ -56,6 +56,7 @@ class ContentListCreateAPIView(ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         """Add content."""
+        request.data._mutable = True
         request.data['author'] = self.request.user.id
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
