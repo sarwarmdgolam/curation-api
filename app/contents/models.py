@@ -1,5 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from app.utils import remove_cache
 
 User = get_user_model()
 
@@ -10,6 +14,12 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+@receiver(post_save, sender=Category)
+def post_save_handler(sender, instance, created, **kwargs):
+    """Post save handler."""
+    remove_cache(sender.__name__)
 
 
 class Content(models.Model):
