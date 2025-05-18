@@ -163,9 +163,10 @@ docker-compose up --build
       ```
 
     
-  - POST /api/contents/ — Create content (auth users)
+  - POST /api/contents/ — Create content (auth users) 
 
     ```
+    After new content create send the content to Celley task to distribute contents' summarization, analysis and topics update by using GROK AI api
     sample payload:
       {
           "title": "Which is better for children with asthma: syrup, nebuliser, or inhaler?",
@@ -201,7 +202,7 @@ docker-compose up --build
     
   - DELETE /api/contents/{id}/ — Delete content (owner/admin)
     
-  - POST /api/contents/{id}/summarize/ — Summarize
+  - POST /api/contents/{id}/summarize/ — Summarize (Used GROK AI api)
 
     ```
     sample req:

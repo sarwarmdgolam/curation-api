@@ -16,12 +16,19 @@ class ContentAPITests(APITestCase):
         refresh = RefreshToken.for_user(self.user)
         self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
 
-    def test_category_count(self):
+    @patch('django.core.cache.cache')
+    def test_category_count(self, mock_cache):
+        mock_cache.get.return_value = None
+        mock_cache.set.return_value = True
+
         count = Category.objects.count()
         self.assertEqual(count, 2)
 
+    @patch("django.core.cache.cache")
     @patch("app.contents.tasks.background.process_content.apply_async")
-    def test_create_content(self, mock_apply_async):
+    def test_create_content(self, mock_apply_async, mock_cache):
+        mock_cache.get.return_value = None
+        mock_cache.set.return_value = True
         url = reverse("content-list")
         category = Category.objects.get(pk=1)
         data = {
@@ -36,7 +43,10 @@ class ContentAPITests(APITestCase):
         content_id = response.data.get("id")
         mock_apply_async.assert_called_once_with(args=[content_id])
 
-    def test_list_contents(self):
+    @patch("django.core.cache.cache")
+    def test_list_contents(self, mock_cache):
+        mock_cache.get.return_value = None
+        mock_cache.set.return_value = True
         category = Category.objects.get(pk=1)
         Content.objects.create(author=self.user, title="1", body="Body", category=category)
         response = self.client.get(reverse("content-list"))
